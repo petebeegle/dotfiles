@@ -7,3 +7,4 @@ export DOTFILES_LOCATION;
 
 ./bin/dotfiles install zsh
 ./bin/dotfiles install starship
+./bin/dotfiles install vscode
