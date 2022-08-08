@@ -1,0 +1,17 @@
+[include]
+  path = ~/.gitconfig.local
+[core]
+  editor = vim
+[color]
+  ui = true
+[diff]
+  compactionHeuristic = true
+  noprefix = true
+[pull]
+  ff = only
+[init]
+  defaultBranch = main
+[user]
+  name = petebeegle
+[alias]
+  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
