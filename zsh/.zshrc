@@ -71,16 +71,7 @@ ZSH_DISABLE_COMPFIX=true
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 # Apple Silicon
-if [ $(arch) = "arm64" ]; then
-  plugins=(docker git golang jira macos pyenv pylint python terraform)
-else
-  # VS Code Containers
-  if [[ ${REMOTE_CONTAINERS} ]] ; then
-    plugins=(docker git golang terraform)
-  else
-    plugins=(docker git golang jira macos pyenv pylint python terraform)
-  fi
-fi
+plugins=(docker git terraform)
 
 source $ZSH/oh-my-zsh.sh
 
