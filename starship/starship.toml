@@ -63,7 +63,7 @@ format = '\([$state( $progress_current/$progress_total)]($style)\) '
 disabled = false
 
 [git_status]
-format = '([$ahead_behind\[$staged$modified$untracked$deleted\]]($style) )'
+format = '([$ahead_behind(\[$staged$modified$untracked$deleted\])]($style) )'
 style = 'red'
 ahead = '⇡${count}'
 behind = '⇣${count}'
