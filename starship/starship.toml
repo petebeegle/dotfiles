@@ -1,0 +1,118 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = '$all'
+scan_timeout = 30
+command_timeout = 700
+add_newline = true
+
+[aws]
+format = 'on [$symbol($profile )(\($region\) )(\[$duration\])]($style)'
+symbol = '☁️  '
+style = 'yellow'
+disabled = false
+expiration_symbol = 'X'
+
+[aws.region_aliases]
+
+[directory]
+read_only = '🔒'
+
+[docker_context]
+symbol = '🐳 '
+style = 'blue'
+format = 'via [$symbol$context]($style) '
+only_with_files = true
+disabled = false
+detect_extensions = []
+detect_files = [
+    'docker-compose.yml',
+    'docker-compose.yaml',
+    'Dockerfile',
+]
+detect_folders = []
+
+[git_branch]
+format = 'on [$symbol$branch]($style)(:[$remote]($style)) '
+symbol = " "
+style = '#FFA500'
+truncation_length = 9223372036854775807
+truncation_symbol = '…'
+only_attached = false
+always_show_remote = false
+disabled = false
+
+[git_commit]
+commit_hash_length = 7
+format = '[\($hash$tag\)]($style) '
+style = 'green'
+only_detached = true
+disabled = false
+tag_symbol = '🔖 '
+tag_disabled = true
+
+[git_state]
+rebase = 'REBASING'
+merge = 'MERGING'
+revert = 'REVERTING'
+cherry_pick = 'CHERRY-PICKING'
+bisect = 'BISECTING'
+am = 'AM'
+am_or_rebase = 'AM/REBASE'
+style = 'yellow'
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+disabled = false
+
+[git_status]
+format = '([$ahead_behind\[$staged$modified$untracked$deleted\]]($style) )'
+style = 'red'
+ahead = '⇡${count}'
+behind = '⇣${count}'
+diverged = '⇕⇡${ahead_count}⇣${behind_count}'
+deleted = '( ✘${count})'
+modified = '( [!${count}](yellow))'
+staged = '([+${count}](green))'
+untracked = '( [?${count}](red))'
+disabled = false
+
+[golang]
+symbol = '🐹'
+
+
+[java]
+symbol = '☕'
+
+[memory_usage]
+symbol = '🐏'
+
+[nodejs]
+format = 'via [$symbol($version )]($style)'
+version_format = 'v${raw}'
+symbol = '⬡ '
+style = 'green'
+disabled = false
+not_capable_style = 'red'
+detect_extensions = [
+    'js',
+    'mjs',
+    'cjs',
+    'ts',
+]
+detect_files = [
+    'package.json',
+    '.node-version',
+    '.nvmrc',
+]
+detect_folders = ['node_modules']
+
+[terraform]
+format = 'via [$symbol$workspace]($style) '
+version_format = 'v${raw}'
+symbol = '💠 '
+style = '105'
+disabled = false
+detect_extensions = [
+    'tf',
+    'hcl',
+]
+detect_files = []
+detect_folders = ['.terraform']
