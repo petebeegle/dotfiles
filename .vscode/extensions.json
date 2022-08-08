@@ -2,6 +2,7 @@
   "recommendations": [
     "mads-hartmann.bash-ide-vscode",
     "tamasfe.even-better-toml",
-    "EditorConfig.EditorConfig"
+    "editorconfig.editorconfig",
+    "foxundermoon.shell-format",
   ]
 }

@@ -2,7 +2,7 @@
 
 set -e
 
-if [ ! -f "${HOME}/.gitconfig.local" ] ; then
+if [ ! -f "${HOME}/.gitconfig.local" ]; then
   cp "${DOTFILES_LOCATION}/git/.gitconfig.local" "${HOME}/.gitconfig.local"
 
   # zsh why?

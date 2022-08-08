@@ -3,7 +3,7 @@
 set -e
 
 DOTFILES_LOCATION=$(pwd)
-export DOTFILES_LOCATION;
+export DOTFILES_LOCATION
 
 ./bin/dotfiles install omz
 ./bin/dotfiles install zsh

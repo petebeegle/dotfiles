@@ -9,13 +9,13 @@ command="${1}"
 shift
 
 case "${command}" in
-  "install")
-    package="${1}"
-    echo "🚀 Installing package: ${package}"
-    (cd "${DOTFILES_LOCATION}/${package}" && ./install.sh)
-    ;;
-  *)
-    echo "${command} does not exist"
+"install")
+  package="${1}"
+  echo "🚀 Installing package: ${package}"
+  (cd "${DOTFILES_LOCATION}/${package}" && ./install.sh)
+  ;;
+*)
+  echo "${command} does not exist"
   exit 1
-    ;;
+  ;;
 esac
