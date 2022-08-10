@@ -13,5 +13,11 @@
   defaultBranch = main
 [user]
   name = petebeegle
+[mergetool]
+	keepBackup = false
+[merge]
+    tool = vscode
+[mergetool "vscode"]
+    cmd = code --wait $MERGED
 [alias]
   lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
