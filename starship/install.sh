@@ -2,7 +2,7 @@
 
 set -e
 
-if [ ! -x "$(command -v starship)" ] && [ -z ${REMOTE_CONTAINERS+x}]; then
+if [ ! -x "$(command -v starship)" ]; then
   echo "🚀 Installing dependency: starship"
   curl -sS https://starship.rs/install.sh | sh
 fi
