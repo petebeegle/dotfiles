@@ -106,6 +106,7 @@ unsetopt share_history
 
 # Auto completion
 autoload -U compinit; compinit
+
 if [ -x "$(command -v starship)" ]; then
   eval "$(starship init zsh)"
 fi
