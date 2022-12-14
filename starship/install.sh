@@ -8,7 +8,7 @@ if [ ! -x "$(command -v starship)" ]; then
 fi
 
 if  [ ! -d "${HOME}/.config" ]; then
-  mkdir "{$HOME}/.config"
+  mkdir "${HOME}/.config"
 fi
 
 ln -sf "${DOTFILES_LOCATION}/starship/starship.toml" "${HOME}/.config/starship.toml"
