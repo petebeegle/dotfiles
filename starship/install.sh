@@ -7,4 +7,8 @@ if [ ! -x "$(command -v starship)" ]; then
   curl -sS https://starship.rs/install.sh | sh -s -- -f
 fi
 
+if  [ ! -d "${HOME}/.config" ]; then
+  mkdir "{$HOME}/.config"
+fi
+
 ln -sf "${DOTFILES_LOCATION}/starship/starship.toml" "${HOME}/.config/starship.toml"
