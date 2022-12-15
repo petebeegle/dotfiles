@@ -116,3 +116,8 @@ if [ -d "$HOME/.nvm" ]; then
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 fi
+
+if [ -x "$(command -v keychain)" ]; then
+  /usr/bin/keychain -q --nogui $HOME/.ssh/gitlab
+  source $HOME/.keychain/$HOST-sh
+fi
