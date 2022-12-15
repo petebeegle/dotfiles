@@ -5,6 +5,7 @@ set -e
 DOTFILES_LOCATION=$(pwd)
 export DOTFILES_LOCATION
 
+./bin/dotfiles install bash
 ./bin/dotfiles install starship
 ./bin/dotfiles install omz
 ./bin/dotfiles install zsh
