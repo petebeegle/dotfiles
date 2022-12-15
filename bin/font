@@ -1,0 +1,27 @@
+#!/usr/bin/env zsh
+
+set -e
+
+command="${1}"
+
+# Shift the first argument off, as we are using that.
+# http://www.tldp.org/LDP/Bash-Beginners-Guide/html/sect_09_07.html
+shift
+
+case "${command}" in
+"install")
+  package="${1}"
+  echo "🚀 Installing package: ${package}"
+
+  (sudo apt install fontconfig unzip && \
+  mkdir ~/.fonts && cd ~/.fonts && \
+  wget "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.2.2/${package}.zip" && \
+  unzip "${package}.zip" && \
+  fc-cache -fv && \
+  rm "${package}.zip")
+  ;;
+*)
+  echo "${command} does not exist"
+  exit 1
+  ;;
+esac
