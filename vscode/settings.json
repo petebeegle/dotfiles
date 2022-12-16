@@ -11,5 +11,6 @@
   "terminal.integrated.shellIntegration.enabled": true,
   "window.commandCenter": true,
   "workbench.preferredDarkColorTheme": "Sapphire (Dim)",
-  "workbench.colorTheme": "Sapphire (Dim)"
+  "workbench.colorTheme": "Sapphire (Dim)",
+  "dotfiles.repository": "https://github.com/petebeegle/dotfiles.git"
 }
