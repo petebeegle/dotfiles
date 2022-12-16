@@ -2,6 +2,11 @@
 
 set -e
 
+# don't run script inside dev-containers
+if [ -v REMOTE_CONTAINERS ]; then
+  exit
+fi
+
 if  [ ! -d "${HOME}/.vscode-server/data/Machine" ]; then
   mkdir -p "${HOME}/.vscode-server/data/Machine"
 fi
