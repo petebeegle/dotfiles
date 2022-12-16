@@ -2,6 +2,10 @@
 
 set -e
 
+if [ -v REMOTE_CONTAINERS ]; then
+  exit
+fi
+
 if [ ! -f "${HOME}/.gitconfig.local" ]; then
   cp "${DOTFILES_LOCATION}/git/.gitconfig.local" "${HOME}/.gitconfig.local"
 
