@@ -12,9 +12,3 @@ if  [ ! -d "${HOME}/.vscode-server/data/Machine" ]; then
 fi
 
 ln -sf "${DOTFILES_LOCATION}/vscode/settings.json" "${HOME}/.vscode-server/data/Machine/settings.json"
-
-CODE_EXTENSIONS=(
-  Tyriar.theme-sapphire
-  ms-vscode-remote.vscode-remote-extensionpack
-)
-for ext in "${CODE_EXTENSIONS[@]}"; do printf "  🚀 Installing extension: %s" "${ext}" && code --install-extension "${ext}" --force; done

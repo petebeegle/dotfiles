@@ -11,8 +11,6 @@
   ff = only
 [init]
   defaultBranch = main
-[user]
-  name = petebeegle
 [mergetool]
 	keepBackup = false
 [merge]

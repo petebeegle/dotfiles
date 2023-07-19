@@ -121,3 +121,7 @@ if [ -x "$(command -v keychain)" ]; then
   /usr/bin/keychain -q --nogui $HOME/.ssh/gitlab
   source $HOME/.keychain/$HOST-sh
 fi
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
