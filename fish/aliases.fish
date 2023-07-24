@@ -24,8 +24,6 @@ alias -s gcn! "git commit --verbose --no-edit --amend"
 alias -s gcmsg "git commit --message"
 alias -s gp "git push"
 alias -s gpf "git push -f"
-alias -s gpsup "git push --set-upstream origin $(git_current_branch)"
-alias -s gswm "git switch $(git_main_branch)"
 
 alias -s l "ls -lFh"
 
@@ -36,3 +34,15 @@ alias -s tf "terraform"
 alias -s tfa "terraform apply"
 alias -s tfa! "terraform apply -auto-approve"
 alias -s tfp "terraform plan"
+
+# functions
+function gpsup --wraps='git push origin $git_current_branch --set-upstream' --description 'alias gpsup git push origin $git_current_branch --set-upstream'
+  git push origin --set-upstream $(git_current_branch)
+
+end
+funcsave gpsup
+
+function gswm --wraps='git switch $git_main_branch' --description 'alias gswm git switch $git_main_branch'
+  git switch $(git_main_branch)
+end
+funcsave gswm
