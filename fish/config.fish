@@ -14,6 +14,7 @@ end
 
 # Update path for homebrew installed things
 set -U fish_user_paths /opt/homebrew/bin/ $fish_user_paths
+set -U fish_user_paths $HOME/.local/bin $fish_user_paths
 
 # add pyenv
 if test -z (pgrep pyenv)
