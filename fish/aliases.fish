@@ -19,11 +19,15 @@ end
 # aliases alphabetical order
 alias -s g "git"
 alias -s gaa "git add ."
+alias -s gb "git branch"
 alias -s gcb "git checkout -b"
 alias -s gcn! "git commit --verbose --no-edit --amend"
 alias -s gcmsg "git commit --message"
+alias -s gd "git diff"
+alias -s glg "git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 alias -s gp "git push"
 alias -s gpf "git push -f"
+alias -s gs "git status -sb"
 
 alias -s l "ls -lFh"
 
