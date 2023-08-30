@@ -51,3 +51,9 @@ function gswm --wraps='git switch $git_main_branch' --description 'alias gswm gi
   git switch $(git_main_branch)
 end
 funcsave gswm
+
+function aws-sso -d "Switch aws profiles" -a profile
+  aws sso login --profile $profile
+  eval "$(aws configure export-credentials --profile $profile --format env)"
+end
+funcsave aws-sso
