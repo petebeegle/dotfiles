@@ -53,7 +53,15 @@ end
 funcsave gswm
 
 function aws-sso -d "Switch aws profiles" -a profile
-  aws sso login --profile $profile
-  eval "$(aws configure export-credentials --profile $profile --format env)"
+  set result (aws configure list-profiles | grep $profile)
+  if test -n "$result"
+    aws sso login --profile $profile
+    eval "$(aws configure export-credentials --profile $profile --format env)"
+  else
+    echo "❗ Profile not found!"
+    echo "Available profiles:"
+    echo ""
+    echo "$(aws configure list-profiles)"
+  end
 end
 funcsave aws-sso
