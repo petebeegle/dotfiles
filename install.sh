@@ -11,4 +11,3 @@ export DOTFILES_LOCATION
 ./bin/dotfiles install zsh
 ./bin/dotfiles install vscode
 ./bin/dotfiles install git
-./bin/dotfiles install fish
