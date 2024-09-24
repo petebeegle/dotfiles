@@ -2,14 +2,28 @@
 
 set -e
 
-# Install autosuggestions
-autosuggestions_dir="$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
-if [ -d "$autosuggestions_dir" ]; then
-    echo "zsh-autosuggestions directory already exists"
-    git -C "$autosuggestions_dir" pull
-else
-    git clone https://github.com/zsh-users/zsh-autosuggestions $autosuggestions_dir
-fi
+# Function to install or update a plugin from a given URL.
+# Arguments:
+#   $1 - The URL of the plugin repository.
+#   $2 - The directory where the plugin should be installed.
+# If the directory already exists, the function will update the plugin by pulling the latest changes.
+# If the directory does not exist, the function will clone the plugin repository into the specified directory.
+install_plugin() {
+    local plugin_url=$1
+    local plugin_dir=$2
+
+    local full_dir="$HOME/.oh-my-zsh/custom/plugins/$plugin_dir"
+
+    if [ -d "$full_dir" ]; then
+        echo "$(basename $plugin_dir) directory already exists"
+        git -C "$full_dir" pull
+    else
+        git clone "$plugin_url" "$full_dir"
+    fi
+}
+
+install_plugin "https://github.com/zsh-users/zsh-autosuggestions" "zsh-autosuggestions"
+install_plugin "https://github.com/gradle/gradle-completion" "gradle-completion"
 
 ln -sf "${DOTFILES_LOCATION}/zsh/completions.zsh" "${HOME}/completions.zsh"
 ln -sf "${DOTFILES_LOCATION}/zsh/.zshrc" "${HOME}/.zshrc"

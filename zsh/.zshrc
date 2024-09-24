@@ -72,7 +72,7 @@ ZSH_DISABLE_COMPFIX=true
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 # Apple Silicon
-plugins=(docker git terraform zsh-autosuggestions)
+plugins=(docker git terraform zsh-autosuggestions gradle-completion)
 
 source $ZSH/oh-my-zsh.sh
 
