@@ -4,3 +4,6 @@ alias awslocal="AWS_ACCESS_KEY_ID=test AWS_SECRET_ACCESS_KEY=test AWS_DEFAULT_RE
 alias dcd="docker-compose down"
 alias dcu="docker-compose up"
 alias dcud="docker-compose up -d"
+
+# assume alias (https://www.granted.dev/)
+alias assume=". assume"
