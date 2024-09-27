@@ -7,3 +7,7 @@ alias dcud="docker-compose up -d"
 
 # assume alias (https://www.granted.dev/)
 alias assume=". assume"
+
+# terraform aliases
+alias tfaa="tfa -auto-approve"
+alias tfda="tfd -auto-approve"
