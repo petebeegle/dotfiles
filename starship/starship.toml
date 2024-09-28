@@ -113,6 +113,11 @@ disabled = false
 detect_extensions = [
     'tf',
     'hcl',
+    'tfplan',
+    'tfstate'
 ]
 detect_files = []
 detect_folders = ['.terraform']
+
+[kubernetes]
+disabled = false
