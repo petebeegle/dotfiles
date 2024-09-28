@@ -11,3 +11,10 @@ alias assume=". assume"
 # terraform aliases
 alias tfaa="tfa -auto-approve"
 alias tfda="tfd -auto-approve"
+
+# kubectl aliases
+alias k="kubectl"
+alias kdp="kubectl describe pods"
+alias kgc="kubectl get configmaps"
+alias kgp="kubectl get pods"
+alias kgs="kubectl get services"
