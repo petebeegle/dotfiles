@@ -1,3 +1,11 @@
+
+# https://docs.brew.sh/Shell-Completion#configuring-completions-in-zsh
+if type brew &>/dev/null
+then
+  echo "🔥Installing brew dependency completions"
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+fi
+
 autoload -U compinit; compinit
 autoload -U +X bashcompinit && bashcompinit
 
