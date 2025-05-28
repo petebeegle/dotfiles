@@ -1,16 +1,16 @@
 {
-  "editor.fontFamily": "'FiraCode Nerd Font Mono'",
+  "editor.fontFamily": "'FiraMono Nerd Font Mono'",
   "editor.fontLigatures": true,
   "editor.formatOnSave": false,
   "files.insertFinalNewline": true,
   "files.trimFinalNewlines": true,
   "files.trimTrailingWhitespace": true,
   "terminal.integrated.defaultProfile.linux": "zsh",
-  "terminal.integrated.fontFamily": "'FiraCode Nerd Font Mono'",
-  "terminal.integrated.fontSize": 14,
   "terminal.integrated.shellIntegration.enabled": true,
   "window.commandCenter": true,
   "workbench.preferredDarkColorTheme": "Sapphire (Dim)",
-  "workbench.colorTheme": "Sapphire (Dim)",
-  "dotfiles.repository": "https://github.com/petebeegle/dotfiles.git"
+  "workbench.colorTheme": "IntelliJ Neo Dark",
+  "dotfiles.repository": "https://github.com/petebeegle/dotfiles.git",
+  "security.workspace.trust.untrustedFiles": "open",
+  "workbench.iconTheme": "material-icon-theme"
 }

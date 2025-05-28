@@ -12,3 +12,8 @@ if  [ ! -d "${HOME}/.vscode-server/data/Machine" ]; then
 fi
 
 ln -sf "${DOTFILES_LOCATION}/vscode/settings.json" "${HOME}/.vscode-server/data/Machine/settings.json"
+
+# if mac, go here
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  ln -sf "${DOTFILES_LOCATION}/vscode/settings.json" "${HOME}/Library/Application Support/Code/User/settings.json"
+fi
