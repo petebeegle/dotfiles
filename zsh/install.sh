@@ -1,9 +1,9 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 set -e
 
-ln -sf "${DOTFILES_LOCATION}/zsh/completions.zsh" "${HOME}/completions.zsh"
 ln -sf "${DOTFILES_LOCATION}/zsh/.zshrc" "${HOME}/.zshrc"
 ln -sf "${DOTFILES_LOCATION}/zsh/.zshenv" "${HOME}/.zshenv"
 
-sh plugins.sh
+# Install zsh plugins (optional - .zshrc handles missing gracefully)
+bash "${DOTFILES_LOCATION}/zsh/plugins.sh"
