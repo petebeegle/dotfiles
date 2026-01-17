@@ -1,127 +1,128 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# Fast zsh config - no framework, lazy loading
 
-# Path to your oh-my-zsh installation.
-export ZSH="${HOME}/.oh-my-zsh"
-export DEFAULT_USER="$(whoami)"
+# ============================================================================
+# History
+# ============================================================================
+HISTFILE="${HOME}/.zsh_history"
+HISTSIZE=10000
+SAVEHIST=10000
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_REDUCE_BLANKS
+setopt INC_APPEND_HISTORY
+unsetopt SHARE_HISTORY
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="agnoster"
+# ============================================================================
+# Basic options
+# ============================================================================
+setopt AUTO_CD
+setopt AUTO_PUSHD
+setopt PUSHD_IGNORE_DUPS
+setopt PUSHD_SILENT
 
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+# ============================================================================
+# Completions (cached compinit)
+# ============================================================================
+autoload -Uz compinit
+# Only regenerate .zcompdump once per day
+if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+  compinit
+else
+  compinit -C
+fi
+autoload -U +X bashcompinit && bashcompinit
 
-# Uncomment the following line to use case-sensitive completion.
-CASE_SENSITIVE="true"
+zstyle ':completion:*' completer _extensions _complete _approximate
+zstyle ':completion:*' menu select
+zstyle ':completion:*' file-list all
+zstyle ':completion:*' squeeze-slashes true
+zstyle ':completion:*' complete-options true
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/.zcompcache"
 
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+# ============================================================================
+# Cached completions (generated once, not on every shell start)
+# ============================================================================
+_completion_cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/completions"
+[[ -d "$_completion_cache_dir" ]] || mkdir -p "$_completion_cache_dir"
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+_cache_completion() {
+  local cmd=$1
+  local cache_file="${_completion_cache_dir}/_${cmd}"
+  if [[ -x "$(command -v $cmd)" ]]; then
+    if [[ ! -f "$cache_file" || "$(command -v $cmd)" -nt "$cache_file" ]]; then
+      $cmd completion zsh > "$cache_file" 2>/dev/null
+    fi
+    [[ -f "$cache_file" ]] && source "$cache_file"
+  fi
+}
 
-# Uncomment the following line to automatically update without prompting.
-# DISABLE_UPDATE_PROMPT="true"
+_cache_completion kubectl
+_cache_completion helm
+_cache_completion talosctl
 
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+# ============================================================================
+# Plugins (direct source, no framework)
+# ============================================================================
+_zsh_autosuggest="${HOME}/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
+[[ -f "$_zsh_autosuggest" ]] && source "$_zsh_autosuggest"
 
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS=true
+# ============================================================================
+# Aliases & exports
+# ============================================================================
+_dotfiles_dir="${DOTFILES_LOCATION:-$HOME/dotfiles}"
+[[ -f "${_dotfiles_dir}/omz/aliases.zsh" ]] && source "${_dotfiles_dir}/omz/aliases.zsh"
+[[ -f "${_dotfiles_dir}/omz/exports.zsh" ]] && source "${_dotfiles_dir}/omz/exports.zsh"
 
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
+# ============================================================================
+# Lazy load NVM (only init when needed)
+# ============================================================================
+if [[ -d "${NVM_DIR:-$HOME/.nvm}" ]]; then
+  _nvm_cmds=(nvm node npm npx yarn pnpm corepack)
+  _nvm_lazy_load() {
+    unset -f "${_nvm_cmds[@]}"
+    export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
+    [[ -s "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh"
+    [[ -s "$NVM_DIR/bash_completion" ]] && source "$NVM_DIR/bash_completion"
+  }
+  for _cmd in "${_nvm_cmds[@]}"; do
+    eval "${_cmd}() { _nvm_lazy_load; ${_cmd} \"\$@\"; }"
+  done
+  unset _cmd
+fi
 
-# Uncomment the following line to disable auto-setting terminal title.
-DISABLE_AUTO_TITLE="true"
+# ============================================================================
+# Lazy load SDKMAN (only init when needed)
+# ============================================================================
+if [[ -d "${SDKMAN_DIR:-$HOME/.sdkman}" ]]; then
+  _sdk_cmds=(sdk java javac gradle mvn kotlin kotlinc groovy scala sbt)
+  _sdk_lazy_load() {
+    unset -f "${_sdk_cmds[@]}"
+    export SDKMAN_DIR="${SDKMAN_DIR:-$HOME/.sdkman}"
+    [[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
+  }
+  for _cmd in "${_sdk_cmds[@]}"; do
+    eval "${_cmd}() { _sdk_lazy_load; ${_cmd} \"\$@\"; }"
+  done
+  unset _cmd
+fi
 
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+# ============================================================================
+# Keychain (SSH agent)
+# ============================================================================
+if [[ -x "$(command -v keychain)" && -f "${HOME}/.ssh/gitlab" ]]; then
+  eval "$(keychain -q --nogui --eval "${HOME}/.ssh/gitlab")"
+fi
 
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-ZSH_DISABLE_COMPFIX=true
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-# Apple Silicon
-plugins=(docker git terraform zsh-autosuggestions gradle-completion)
-
-source $ZSH/oh-my-zsh.sh
-
-# User configuration
-
-unsetopt share_history
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# Auto completion
-source $HOME/completions.zsh
-
-if [ -x "$(command -v starship)" ]; then
+# ============================================================================
+# Prompt (Starship)
+# ============================================================================
+if [[ -x "$(command -v starship)" ]]; then
   eval "$(starship init zsh)"
 fi
 
-if [ -d "$HOME/.nvm" ]; then
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-fi
-
-if [ -x "$(command -v keychain)" ]; then
-  /usr/bin/keychain -q --nogui $HOME/.ssh/gitlab
-  source $HOME/.keychain/$HOST-sh
-fi
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
-export PATH="$HOME/.local/bin:$PATH"
+# ============================================================================
+# PATH additions
+# ============================================================================
+export PATH="${HOME}/.local/bin:${PATH}"
