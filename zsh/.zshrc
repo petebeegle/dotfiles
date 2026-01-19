@@ -126,3 +126,24 @@ fi
 # PATH additions
 # ============================================================================
 export PATH="${HOME}/.local/bin:${PATH}"
+
+
+# ============================================================================
+# Key bindings for terminal navigation
+# ============================================================================
+# Alt+Left/Right for word navigation
+bindkey '^[[1;3D' backward-word  # Alt+Left
+bindkey '^[[1;3C' forward-word   # Alt+Right
+bindkey '^[^[[D' backward-word   # Alt+Left (alternative)
+bindkey '^[^[[C' forward-word    # Alt+Right (alternative)
+
+# Ctrl+Left/Right for word navigation (alternative)
+bindkey '^[[1;5D' backward-word  # Ctrl+Left
+bindkey '^[[1;5C' forward-word   # Ctrl+Right
+
+# Home/End keys
+bindkey '^[[H' beginning-of-line
+bindkey '^[[F' end-of-line
+
+# Delete key
+bindkey '^[[3~' delete-char
