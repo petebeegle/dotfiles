@@ -1,3 +1,21 @@
+# ============================================
+# Directory Navigation & Listing Aliases
+# ============================================
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+
+alias l='ls -al'
+alias la='ls -A'
+alias ll='ls -lh'
+alias lla='ls -lAh'
+alias lt='ls -lth'
+alias lta='ls -lAth'
+
+# ============================================
+# AWS & Cloud Aliases
+# ============================================
 alias awslocal="AWS_ACCESS_KEY_ID=test AWS_SECRET_ACCESS_KEY=test AWS_DEFAULT_REGION=${DEFAULT_REGION:-$AWS_DEFAULT_REGION} aws --endpoint-url=http://${LOCALSTACK_HOST:-localhost}:4566"
 
 # docker compose aliases
