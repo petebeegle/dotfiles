@@ -4,13 +4,22 @@
 # History
 # ============================================================================
 HISTFILE="${HOME}/.zsh_history"
-HISTSIZE=10000
-SAVEHIST=10000
-setopt HIST_IGNORE_ALL_DUPS
-setopt HIST_SAVE_NO_DUPS
-setopt HIST_REDUCE_BLANKS
-setopt INC_APPEND_HISTORY
+HISTSIZE=50000
+SAVEHIST=50000
+setopt EXTENDED_HISTORY        # save timestamp and duration with each entry
+setopt HIST_EXPIRE_DUPS_FIRST  # expire duplicate entries first when trimming
+setopt HIST_IGNORE_ALL_DUPS    # remove older duplicate entries from history
+setopt HIST_FIND_NO_DUPS       # don't show duplicates when searching
+setopt HIST_IGNORE_SPACE       # don't save commands starting with a space
+setopt HIST_SAVE_NO_DUPS       # don't write duplicate entries to history file
+setopt HIST_REDUCE_BLANKS      # remove superfluous blanks from history
+setopt HIST_VERIFY             # show expanded command before executing (!! etc)
+setopt INC_APPEND_HISTORY      # write to history file immediately, not on exit
 unsetopt SHARE_HISTORY
+
+alias h='history'
+alias hs='history | grep'
+function hsi() { history | grep -i "$@" }
 
 # ============================================================================
 # Basic options
@@ -69,11 +78,9 @@ _zsh_autosuggest="${HOME}/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.z
 [[ -f "$_zsh_autosuggest" ]] && source "$_zsh_autosuggest"
 
 # ============================================================================
-# Aliases & exports
+# Aliases
 # ============================================================================
-_dotfiles_dir="${DOTFILES_LOCATION:-$HOME/dotfiles}"
-[[ -f "${_dotfiles_dir}/omz/aliases.zsh" ]] && source "${_dotfiles_dir}/omz/aliases.zsh"
-[[ -f "${_dotfiles_dir}/omz/exports.zsh" ]] && source "${_dotfiles_dir}/omz/exports.zsh"
+[[ -f "${HOME}/.aliases.zsh" ]] && source "${HOME}/.aliases.zsh"
 
 # ============================================================================
 # Lazy load NVM (only init when needed)
