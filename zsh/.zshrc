@@ -100,20 +100,9 @@ if [[ -d "${NVM_DIR:-$HOME/.nvm}" ]]; then
 fi
 
 # ============================================================================
-# Lazy load SDKMAN (only init when needed)
+# SDKMAN
 # ============================================================================
-if [[ -d "${SDKMAN_DIR:-$HOME/.sdkman}" ]]; then
-  _sdk_cmds=(sdk java javac gradle mvn kotlin kotlinc groovy scala sbt)
-  _sdk_lazy_load() {
-    unset -f "${_sdk_cmds[@]}"
-    export SDKMAN_DIR="${SDKMAN_DIR:-$HOME/.sdkman}"
-    [[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
-  }
-  for _cmd in "${_sdk_cmds[@]}"; do
-    eval "${_cmd}() { _sdk_lazy_load; ${_cmd} \"\$@\"; }"
-  done
-  unset _cmd
-fi
+[[ -s "${SDKMAN_DIR:-$HOME/.sdkman}/bin/sdkman-init.sh" ]] && source "${SDKMAN_DIR:-$HOME/.sdkman}/bin/sdkman-init.sh"
 
 # ============================================================================
 # Keychain (SSH agent)
@@ -133,7 +122,20 @@ fi
 # PATH additions
 # ============================================================================
 export PATH="${HOME}/.local/bin:${PATH}"
+export PATH="${HOME}/.cargo/bin:${PATH}"
 
+# Netskope SSL Decryption Cert
+export REQUESTS_CA_BUNDLE=/opt/netskope/certs/nscacert_combined.pem
+export CURL_CA_BUNDLE=/opt/netskope/certs/nscacert_combined.pem
+export SSL_CERT_DIR=/opt/netskope/certs/nscacert_combined.pem
+export PIP_CERT=/opt/netskope/certs/nscacert_combined.pem
+export NODE_EXTRA_CA_CERTS=/opt/netskope/certs/nscacert_combined.pem
+export GIT_SSL_CAPATH=/opt/netskope/certs/nscacert_combined.pem
+export SSL_CERT_FILE=/opt/netskope/certs/nscacert_combined.pem
+export HTTPLIB2_CA_CERTS=/opt/netskope/certs/nscacert_combined.pem
+
+export JAVA_HOME="${SDKMAN_DIR:-$HOME/.sdkman}/candidates/java/current"
+export PATH="${JAVA_HOME}/bin:${PATH}"
 
 # ============================================================================
 # Key bindings for terminal navigation
