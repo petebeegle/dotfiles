@@ -1,0 +1,26 @@
+{
+  "statusLine": {
+    "type": "command",
+    "command": "bash $HOME/.claude/commands/statusline-command.sh"
+  },
+  "model": "sonnet",
+  "env": {
+    "MAX_THINKING_TOKENS": "10000",
+    "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "50"
+  },
+  "enableAllProjectMcpServers": true,
+  "hooks": {
+    "PreCompact": [
+      {
+        "matcher": "auto",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/compact-checkpoint.sh",
+            "statusMessage": "Noting auto-compact..."
+          }
+        ]
+      }
+    ]
+  }
+}
