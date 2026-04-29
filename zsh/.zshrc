@@ -86,15 +86,15 @@ _zsh_autosuggest="${HOME}/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.z
 # Lazy load NVM (only init when needed)
 # ============================================================================
 if [[ -d "${NVM_DIR:-$HOME/.nvm}" ]]; then
-  _nvm_cmds=(nvm node npm npx yarn pnpm corepack)
-  _nvm_lazy_load() {
-    unset -f "${_nvm_cmds[@]}"
-    export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
-    [[ -s "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh"
-    [[ -s "$NVM_DIR/bash_completion" ]] && source "$NVM_DIR/bash_completion"
-  }
-  for _cmd in "${_nvm_cmds[@]}"; do
-    eval "${_cmd}() { _nvm_lazy_load; ${_cmd} \"\$@\"; }"
+  export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
+  for _cmd in nvm node npm npx yarn pnpm corepack; do
+    eval "
+${_cmd}() {
+  unset -f nvm node npm npx yarn pnpm corepack
+  [[ -s \"\$NVM_DIR/nvm.sh\" ]] && source \"\$NVM_DIR/nvm.sh\"
+  [[ -s \"\$NVM_DIR/bash_completion\" ]] && source \"\$NVM_DIR/bash_completion\"
+  ${_cmd} \"\$@\"
+}"
   done
   unset _cmd
 fi
